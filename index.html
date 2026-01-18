@@ -203,6 +203,67 @@
             z-index: 10;
             pointer-events: none;
         }
+        
+        /* Interactive Lineup Styles */
+        .lineup-accordion {
+            display: flex;
+            gap: 1rem;
+            height: 70vh;
+            min-height: 500px;
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .lineup-accordion {
+                flex-direction: column;
+                height: 150vh;
+            }
+        }
+
+        .lineup-panel {
+            position: relative;
+            flex: 1;
+            overflow: hidden;
+            transition: flex 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .lineup-panel:hover {
+            flex: 2.5;
+            border-color: var(--color-accent);
+        }
+
+        .lineup-panel img {
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: grayscale(100%) contrast(1.2);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.05);
+        }
+
+        .lineup-panel:hover img {
+            filter: grayscale(0%) contrast(1);
+            transform: scale(1);
+        }
+
+        .lineup-panel:hover .lineup-info {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .lineup-panel:hover .lineup-title {
+            color: var(--color-accent);
+            text-shadow: 0 0 20px rgba(255, 102, 179, 0.4);
+        }
+
+        .lineup-overlay {
+            background: linear-gradient(to top, #0a0a0a 10%, transparent 80%);
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-pink-400 selection:text-black">
@@ -254,7 +315,7 @@
 
         <div id="hero-title-container" class="z-10 text-center px-4 mix-blend-difference text-white will-change-transform">
             <p class="uppercase tracking-[0.5em] mb-4 text-sm md:text-base font-bold animate-fade-in-up">
-                Two Days • 52+ Events • Infinite Vibes
+                Two Days • 30+ Colleges • Infinite Vibes
             </p>
             <div class="hero-parallax">
                 <h1 class="text-[15vw] leading-[0.8] font-display font-extrabold uppercase tracking-tighter">
@@ -380,35 +441,53 @@
                 <span class="hidden md:block text-[var(--color-accent)] font-mono text-xl">2026 Headliners</span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-800 border border-gray-800">
-                <!-- Artist Cards -->
-                <div class="group relative bg-[var(--color-bg)] aspect-[4/5] overflow-hidden card-hover">
-                    <div class="absolute inset-0 bg-gray-900 transition-colors duration-500 group-hover:bg-[var(--color-accent)]"></div>
-                    <img src="https://images.unsplash.com/photo-1516280440614-6697288d5d38?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60 group-hover:opacity-100 transition-opacity duration-500 grayscale group-hover:grayscale-0 scale-100 group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute bottom-0 left-0 w-full p-6">
-                        <span class="block text-xs uppercase tracking-widest mb-2 group-hover:text-black font-bold">Day 1 • Star Night</span>
-                        <h3 class="text-3xl font-display font-bold uppercase leading-none mb-1 group-hover:text-black">Special Guest</h3>
-                        <p class="text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity text-black font-bold">Live Performance</p>
-                    </div>
-                </div>
-                
-                <div class="group relative bg-[var(--color-bg)] aspect-[4/5] overflow-hidden card-hover">
-                    <div class="absolute inset-0 bg-gray-900 transition-colors duration-500 group-hover:bg-[var(--color-secondary)]"></div>
-                    <img src="https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60 group-hover:opacity-100 transition-opacity duration-500 grayscale group-hover:grayscale-0 scale-100 group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute bottom-0 left-0 w-full p-6">
-                        <span class="block text-xs uppercase tracking-widest mb-2 group-hover:text-black font-bold">Day 2 • DJ Night</span>
-                        <h3 class="text-3xl font-display font-bold uppercase leading-none mb-1 group-hover:text-black">Pro Show</h3>
-                        <p class="text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity text-black font-bold">Electronic Vibes</p>
+            <!-- Interactive Accordion -->
+            <div class="lineup-accordion">
+                <!-- Panel 1: Star Night -->
+                <div class="lineup-panel group">
+                    <div class="lineup-overlay"></div>
+                    <img src="Vijay Sethupathi.jpeg" alt="Star Night">
+                    <div class="absolute bottom-0 left-0 w-full p-8 z-20 flex flex-col justify-end h-full">
+                        <span class="block text-xs uppercase tracking-[0.2em] mb-2 font-bold text-gray-400 group-hover:text-white transition-colors">Day 1 • Oct 23</span>
+                        <h3 class="lineup-title text-4xl md:text-6xl font-display font-black uppercase leading-none mb-2 transition-colors duration-300">Star Night</h3>
+                        <div class="lineup-info opacity-0 transform translate-y-4 transition-all duration-500 ease-out delay-75">
+                            <p class="text-lg text-gray-300 mb-4 font-bold">Featuring Top Playback Singer</p>
+                            <button class="bg-[var(--color-accent)] text-black px-6 py-2 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-white transition-colors">
+                                View Artist
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="group relative bg-[var(--color-bg)] aspect-[4/5] overflow-hidden card-hover">
-                    <div class="absolute inset-0 bg-gray-900 transition-colors duration-500 group-hover:bg-white"></div>
-                    <img src="https://images.unsplash.com/photo-1514525253440-b393452e8d03?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60 group-hover:opacity-100 transition-opacity duration-500 grayscale group-hover:grayscale-0 scale-100 group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute bottom-0 left-0 w-full p-6">
-                        <span class="block text-xs uppercase tracking-widest mb-2 group-hover:text-black font-bold">Variety</span>
-                        <h3 class="text-3xl font-display font-bold uppercase leading-none mb-1 group-hover:text-black">Battle of Bands</h3>
-                        <p class="text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity text-black font-bold">Inter-College Competition</p>
+                <!-- Panel 2: DJ Night -->
+                <div class="lineup-panel group">
+                    <div class="lineup-overlay"></div>
+                    <img src="artist.png" alt="DJ Night">
+                    <div class="absolute bottom-0 left-0 w-full p-8 z-20 flex flex-col justify-end h-full">
+                        <span class="block text-xs uppercase tracking-[0.2em] mb-2 font-bold text-gray-400 group-hover:text-white transition-colors">Day 2 • Oct 24</span>
+                        <h3 class="lineup-title text-4xl md:text-6xl font-display font-black uppercase leading-none mb-2 transition-colors duration-300">Pro Show</h3>
+                        <div class="lineup-info opacity-0 transform translate-y-4 transition-all duration-500 ease-out delay-75">
+                            <p class="text-lg text-gray-300 mb-4 font-bold">International DJ Set • Sunburn Campus</p>
+                            <button class="bg-[var(--color-secondary)] text-black px-6 py-2 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-white transition-colors">
+                                Listen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 3: Battle of Bands -->
+                <div class="lineup-panel group">
+                    <div class="lineup-overlay"></div>
+                    <img src="Asaal Kolaru.jpg" alt="Bands">
+                    <div class="absolute bottom-0 left-0 w-full p-8 z-20 flex flex-col justify-end h-full">
+                        <span class="block text-xs uppercase tracking-[0.2em] mb-2 font-bold text-gray-400 group-hover:text-white transition-colors">Competition</span>
+                        <h3 class="lineup-title text-4xl md:text-6xl font-display font-black uppercase leading-none mb-2 transition-colors duration-300">Battle of Bands</h3>
+                        <div class="lineup-info opacity-0 transform translate-y-4 transition-all duration-500 ease-out delay-75">
+                            <p class="text-lg text-gray-300 mb-4 font-bold">The Ultimate Music Face-off</p>
+                            <button class="border border-white text-white px-6 py-2 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-white hover:text-black transition-colors">
+                                Register Band
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -773,10 +852,10 @@
                 });
             });
 
-            // Speaker Stagger
-            gsap.from("#lineup .group", {
-                scrollTrigger: { trigger: "#lineup", start: "top 70%" },
-                y: 100, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power4.out"
+            // Lineup Stagger Animation - UPDATED for Accordion
+            gsap.from(".lineup-accordion", {
+                scrollTrigger: { trigger: "#lineup", start: "top 80%" },
+                y: 100, opacity: 0, duration: 1.2, ease: "power4.out"
             });
 
             // Horizontal Gallery Scroll Trigger
